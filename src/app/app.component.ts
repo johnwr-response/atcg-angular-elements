@@ -1,5 +1,6 @@
 import {Component, Injector} from '@angular/core';
 import {createCustomElement} from '@angular/elements';
+import {DomSanitizer} from "@angular/platform-browser";
 import {AlertComponent} from "./alert.component";
 
 @Component({
@@ -9,11 +10,11 @@ import {AlertComponent} from "./alert.component";
 })
 export class AppComponent {
   content = null;
-  constructor(injector: Injector) {
+  constructor(injector: Injector, domSanitizer: DomSanitizer) {
     const AlertElement = createCustomElement(AlertComponent, {injector: injector});
     customElements.define('my-alert', AlertElement);
     setTimeout(() => {
-      this.content = "<my-alert message='Rendered Dynamically!'></my-alert>";
+      this.content = domSanitizer.bypassSecurityTrustHtml("<my-alert message='Rendered Dynamically!'></my-alert>");
     },1000);
   }
 }
