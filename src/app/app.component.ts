@@ -9,7 +9,7 @@ export class AppComponent {
   content = null;
   constructor() {
     setTimeout(() => {
-      this.content = "<p>A paragraph!</p>";
+      this.content = "<app-alert message='Rendered Dynamically!'></app-alert>";
     },1000);
   }
 }
